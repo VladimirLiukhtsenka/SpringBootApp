@@ -1,0 +1,6 @@
+adContentRating:
+  MinAge:
+    generalAudiences: 4
+    parentalGuidance: 9
+    teen: 12
+    matureAudiences: 17
