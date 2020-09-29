@@ -1,0 +1,4 @@
+server.port: 80
+segmentationService:
+  name: segmentation-service
+  url: 192.168.99.100:81

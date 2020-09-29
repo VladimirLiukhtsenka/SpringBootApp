@@ -1,7 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-    id "com.palantir.docker" version "0.25.0"
+    id 'com.bmuschko.docker-spring-boot-application' version '6.6.1'
 }
 
 subprojects {
@@ -22,48 +22,31 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-web'
     }
 
-    if (name == 'segmentation-service' || name == 'user-service') {
-        configurations {
-            compileOnly {
-                extendsFrom annotationProcessor
-            }
-        }
-
-        apply plugin: 'com.palantir.docker'
-
-        dependencies {
-            implementation project(':common')
-            testImplementation('org.springframework.boot:spring-boot-starter-test') {
-                exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-            }
-            compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.2'
-        }
-
-        test {
-            useJUnitPlatform()
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
         }
     }
-}
 
-project(':common') {
-    bootJar {
-        enabled = false
-    }
-
-    jar {
-        enabled = true
-    }
-}
-
-project(':user-service') {
     dependencies {
-        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.5.RELEASE'
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.2'
     }
 
-    docker {
-        name "user-service"
-        dockerfile file('Dockerfile')
-        copySpec.from(jar).rename(".*", "app.jar")
-        buildArgs(['JAR_FILE': "app.jar"])
+    if (name != 'common') {
+        apply plugin: 'com.bmuschko.docker-spring-boot-application'
+
+        docker {
+            springBootApplication {
+                baseImage = 'openjdk:8-alpine'
+                ports = [80]
+            }
+        }
+    }
+
+    test {
+        useJUnitPlatform()
     }
 }

@@ -1,14 +1,11 @@
 package by.issoft.training.segmentationservice.service;
 
 import by.issoft.training.dto.UserDto;
-import by.issoft.training.factory.YamlPropertySourceFactory;
 import by.issoft.training.segmentationservice.dto.AdvertisingContentRatingDto;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 @Service
-@PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:advertisingcontentrating.yml")
 public class AdvertisingContentRatingServiceImpl implements AdvertisingContentRatingService {
     @Value("${adContentRating.MinAge.generalAudiences}")
     private int minAgeForGeneralAudiences;
