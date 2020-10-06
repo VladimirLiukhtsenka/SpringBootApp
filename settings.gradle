@@ -1,1 +1,5 @@
-rootProject.name = 'spring-boot-app'
+rootProject.name = 'spring-boot-app-multi-module'
+
+include 'user-service'
+include 'segmentation-service'
+include 'common'

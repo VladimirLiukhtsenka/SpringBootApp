@@ -1,0 +1,4 @@
+dependencies {
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.5.RELEASE'
+    implementation project(':common')
+}
