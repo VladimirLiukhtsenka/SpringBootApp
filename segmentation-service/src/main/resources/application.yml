@@ -1,7 +1,8 @@
 server.port: 81
-adContentRating:
-  MinAge:
-    generalAudiences: 4
-    parentalGuidance: 9
-    teen: 12
-    matureAudiences: 17
+advertising:
+  contentrating:
+    minage:
+      generalAudiences: 4
+      parentalGuidance: 9
+      teen: 12
+      matureAudiences: 17
