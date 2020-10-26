@@ -1,0 +1,14 @@
+version: "3"
+services:
+  segmentation-service:
+    build:
+      context: segmentation-service/build/docker/
+    container_name: segmentation_service
+    ports:
+      - 81:81
+  user-service:
+    build:
+      context: user-service/build/docker/
+    container_name: user_service
+    ports:
+      - 80:80
